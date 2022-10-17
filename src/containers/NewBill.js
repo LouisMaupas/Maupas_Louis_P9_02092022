@@ -29,8 +29,8 @@ export default class NewBill {
     formData.append("file", file);
     formData.append("email", email);
     // TODO Fix unexpected bug : choosing a receipt without saving the bill will still save it
-    // this.formData = formData;
-    // this.fileName = fileName;
+    this.formData = formData;
+    this.fileName = fileName;
     // TODO FIX [Bug Hunt] - Bills
     const sendButton = window.document.getElementById("btn-send-bill");
     const acceptedTypes = ["image/png", "image/jpeg", "image/jpg"];
@@ -40,21 +40,21 @@ export default class NewBill {
       sendButton.setAttribute("disabled", "");
     }
     // TODO Fix unexpected bug : choosing a receipt without saving the bill will still save it
-    this.store
-      .bills()
-      .create({
-        data: formData,
-        headers: {
-          noContentType: true,
-        },
-      })
-      .then(({ fileUrl, key }) => {
-        console.log(fileUrl);
-        this.billId = key;
-        this.fileUrl = fileUrl;
-        this.fileName = fileName;
-      })
-      .catch((error) => console.error(error));
+    // this.store
+    //   .bills()
+    //   .create({
+    //     data: formData,
+    //     headers: {
+    //       noContentType: true,
+    //     },
+    //   })
+    //   .then(({ fileUrl, key }) => {
+    //     console.log(fileUrl);
+    //     this.billId = key;
+    //     this.fileUrl = fileUrl;
+    //     this.fileName = fileName;
+    //   })
+    //   .catch((error) => console.error(error));
   };
   handleSubmit = (e) => {
     e.preventDefault();
@@ -82,23 +82,23 @@ export default class NewBill {
       status: "pending",
     };
     // TODO Fix unexpected bug : choosing a receipt without saving the bill will still save it
-    // this.store
-    //   .bills()
-    //   .create({
-    //     data: this.formData,
-    //     headers: {
-    //       noContentType: true,
-    //     },
-    //   })
-    //   .then(({ fileUrl, key }) => {
-    //     console.log(fileUrl);
-    //     this.billId = key;
-    //     this.fileUrl = fileUrl;
-    //     this.fileName = this.fileName;
-    //     this.updateBill(bill);
-    //     this.onNavigate(ROUTES_PATH["Bills"]);
-    //   })
-    //   .catch((error) => console.error(error));
+    this.store
+      .bills()
+      .create({
+        data: this.formData,
+        headers: {
+          noContentType: true,
+        },
+      })
+      .then(({ fileUrl, key }) => {
+        console.log(fileUrl);
+        this.billId = key;
+        this.fileUrl = fileUrl;
+        this.fileName = this.fileName;
+        this.updateBill(bill);
+        this.onNavigate(ROUTES_PATH["Bills"]);
+      })
+      .catch((error) => console.error(error));
   };
 
   // not need to cover this function by tests
