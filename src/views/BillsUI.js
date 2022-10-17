@@ -7,6 +7,7 @@ import Actions from "./Actions.js";
 
 const row = (bill) => {
   // FIXME format date and add data-testid attribute
+  console.log("date de la bill : ", bill.date);
   return `
     <tr>
       <td>${bill.type}</td>
