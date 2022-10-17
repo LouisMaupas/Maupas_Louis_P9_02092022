@@ -6,7 +6,7 @@ import { formatDate } from "../app/format.js";
 import Actions from "./Actions.js";
 
 const row = (bill) => {
-  // format date and add data-testid attribute
+  // FIXME format date and add data-testid attribute
   return `
     <tr>
       <td>${bill.type}</td>
